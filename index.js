@@ -19,7 +19,7 @@ const ModelCarpentry = new schema({
         required: true
     },
     password: {
-        type: Number,
+        type: String,
         required: true
     },
     carpentry_shop_name: {
@@ -58,7 +58,7 @@ app.post("/register", (req, res) => {
     var newCarpentry = new Carpentry(req.body);
     newCarpentry.save((err, newDoc) => {
         if (err) {
-            console.error("there is an error in user while sign up");
+            console.error("there is an error in user while sign up: "+err.message);
             return res.send(err);
         }
         console.log(newDoc);
