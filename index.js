@@ -27,11 +27,7 @@ const ModelCarpentry = new schema({
         required: true
     },
     adress: {
-        type: {
-            street: String,
-            num: Number,
-            city: String,
-        },
+        type: String,
         required: true
     },
     fon_numbers: {
@@ -74,7 +70,7 @@ app.post("/login", (req, res) => {
             return res.send(err.msg);
         if (!doc)
             return res.status(404).send("password or name dosent exist");
-        res.status(200).send(doc.type_tree);
+        res.status(200).send(doc.types_of_woodens);
     });
 });
 
@@ -104,15 +100,19 @@ app.get("/getAllCarpentry", (req, res) => {
     Carpentry.find((err, documents) => {
         if (err)
             return res.status(500).send(err);
-        let type_tree_list = [];
-        let carpentry_shop_name_list = [];
+
+        let shop_and_woodens_objects_list = [{}];
+
         for (let index = 0; index < documents.length; index++) {
-            type_tree_list[index] = documents[index].type_tree;
-            carpentry_shop_name_list[index] = documents[index].carpentry_shop_name;
+            shop_and_woodens_objects_list[index] = {
+                carpentry_shop_name: documents[index].carpentry_shop_name,
+                adress: documents[index].adress,
+                fon_numbers: documents[index].fon_numbers,
+                types_of_woodens: documents[index].types_of_woodens
+            }
         }
         res.status(200).send({
-            type_tree_list: type_tree_list,
-            carpentry_shop_name_list: carpentry_shop_name_list
+            shop_and_woodens_objects_list
         });
     });
 });
