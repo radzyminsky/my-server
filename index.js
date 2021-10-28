@@ -54,6 +54,12 @@ var Carpentry = mongoose.model('CarpentryOwner', ModelCarpentry);
 
 app.post("/register", (req, res) => {
     var newCarpentry = new Carpentry(req.body);
+    if (req.body && req.body.image)
+
+        console.log('\n\n\n image:' + JSON.stringify(req.body.image) + '\n\n\n');
+    else
+        console.log('\n\n\n' + JSON.stringify(req.body) + '\n\n\n');
+
     newCarpentry.save((err, newDoc) => {
         if (err) {
             console.error("there is an error in user while sign up: " + err.message);
@@ -119,5 +125,12 @@ app.get("/getAllCarpentry", (req, res) => {
 
 app.listen(3560);
 
+// function asyncFunc() {
+//     console.log(asyncFunc);
 
+//     return new Promise((resolve, reject) => {
+//         resolve('126'+this);
+//     })
+// }
+// asyncFunc().then(console.log).then(console.log);
 
